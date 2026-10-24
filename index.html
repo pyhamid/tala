@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bagages Tala Ouglid – Transport France ↔ Algérie</title>
+<meta name="description" content="Transport de bagages et colis entre la France et l’Algérie : tarifs au kilo, ramassage à domicile, suivi en ligne.">
+<style>
+:root{box-sizing:border-box;--bg:#f4f5f8;--card:#fff;--tx:#14181f;--mut:#5b6472;--bd:#e3e6ec;--navy:#0f1b3d;--red:#d6264a;--red2:#b81d3e;--alt:#eaeefb;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#0b1020;--card:#151c33;--tx:#eef1f8;--mut:#9aa5bd;--bd:#27304d;--navy:#070c1d;--alt:#10172c;color-scheme:dark}}
+html{scroll-behavior:smooth;scroll-padding-top:4rem}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--tx);line-height:1.5}
+a{color:inherit;text-decoration:none}
+.c{max-width:1050px;margin:0 auto;padding:0 1.25rem}
+header{position:sticky;top:0;z-index:10;background:var(--navy);color:#fff;border-bottom:3px solid var(--red)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem 0;flex-wrap:wrap}
+.logo{font-weight:800;letter-spacing:.3px}.logo span{color:var(--red)}
+nav a{margin-left:.3rem;padding:.35rem .7rem;border-radius:99px;font-size:.92rem}
+nav a:hover{background:rgba(255,255,255,.15)}
+.hero{background:linear-gradient(135deg,var(--navy),#1c2f6b);color:#fff;padding:3rem 0}
+.hero h1{font-size:clamp(1.7rem,5vw,2.8rem);margin:.2rem 0 .6rem;line-height:1.15}
+.hero p{max-width:620px;opacity:.9}
+.route{display:inline-block;background:var(--red);padding:.25rem .9rem;border-radius:99px;font-weight:700;font-size:.9rem}
+.btns{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.4rem}
+.btn{display:inline-block;border:0;cursor:pointer;padding:.7rem 1.4rem;border-radius:99px;font-weight:700;font-size:.95rem;background:var(--red);color:#fff;font-family:inherit}
+.btn:hover{background:var(--red2)}.btn.o{background:transparent;border:2px solid #fff}.btn.g{background:#1faa59}
+.btn[disabled]{opacity:.6;cursor:wait}
+section{padding:2.5rem 0}.alt{background:var(--alt)}
+h2{margin:0 0 1rem;font-size:1.6rem}
+.grid{display:grid;gap:1.2rem}
+@media(min-width:760px){.g2{grid-template-columns:1fr 1fr}}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:1rem;padding:1.3rem;box-shadow:0 6px 20px rgba(15,27,61,.07)}
+.card h3{margin:0 0 .8rem;display:flex;align-items:center;gap:.5rem}
+.row{display:flex;justify-content:space-between;align-items:center;gap:.8rem;padding:.55rem 0;border-bottom:1px solid var(--bd);font-size:.93rem}
+.row:last-child{border:0}
+.p{background:var(--red);color:#fff;font-weight:800;padding:.25rem .7rem;border-radius:.6rem;white-space:nowrap}
+label{display:block;font-size:.88rem;margin:.7rem 0 .25rem;font-weight:600}
+input,select,textarea{width:100%;padding:.6rem .8rem;border-radius:.7rem;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font:inherit}
+.chk{display:flex;align-items:center;gap:.5rem;font-weight:400}.chk input{width:auto}
+.out{margin-top:1.1rem;padding:1rem;border-radius:.9rem;background:var(--alt);border:2px dashed var(--red);display:none}
+.out b{font-size:1.9rem;color:var(--red);display:block}
+.mut{color:var(--mut);font-size:.85rem}
+.pill{display:inline-block;padding:.2rem .7rem;border-radius:99px;font-size:.8rem;font-weight:700;background:#dbeafe;color:#1d4ed8}
+.tabs{display:flex;gap:.5rem;margin-bottom:1rem}
+.tabs button{flex:1;padding:.6rem;border-radius:.7rem;border:2px solid var(--bd);background:var(--card);color:var(--tx);font-weight:700;cursor:pointer;font-family:inherit}
+.tabs button.on{border-color:var(--red);background:var(--red);color:#fff}
+.ok{margin-top:1rem;padding:1rem;border-radius:.9rem;background:#dcfce7;color:#14532d;border:1px solid #86efac}
+.err{margin-top:1rem;padding:1rem;border-radius:.9rem;background:#fee2e2;color:#7f1d1d;border:1px solid #fca5a5}
+.hp{position:absolute;left:-9999px;height:0;overflow:hidden}
+footer{background:var(--navy);color:#cfd6ea;padding:1.5rem 0;font-size:.85rem;text-align:center}
+</style>
+</head>
+<body>
+<header><div class="c nav"><div class="logo">BAGAGES <span>TALA OUGLID</span></div>
+<nav><a href="#tarifs">Tarifs</a><a href="#calcul">Commander</a><a href="#suivi">Suivi</a><a href="#contact">Contact</a></nav></div></header>
+
+<div class="hero"><div class="c">
+<span class="route">FRANCE ↔ ALGÉRIE</span>
+<h1>Transport de bagages &amp; colis entre la France et l’Algérie</h1>
+<p>Dépôt ou ramassage à domicile, tarifs au kilo clairs, suivi de votre colis en ligne.</p>
+<div class="btns"><a class="btn" href="#calcul">Calculer et commander</a><a class="btn g" href="https://wa.me/33745674072">WhatsApp France</a><a class="btn o" href="#suivi">Suivre un colis</a></div>
+</div></div>
+
+<section id="tarifs"><div class="c"><h2>Nos tarifs</h2>
+<div class="grid g2">
+<div class="card"><h3>🇫🇷 France → Algérie 🇩🇿</h3>
+<div class="row"><span>À partir de 25 kg dans un seul sac</span><span class="p">2,50 €/kg</span></div>
+<div class="row"><span>Déposer au dépôt</span><span class="p">2,50 €/kg</span></div>
+<div class="row"><span>Ramassage à domicile dès 20 kg</span><span class="p">3 €/kg</span></div>
+<div class="row"><span>Moins de 20 kg</span><span class="p">3,50 €/kg</span></div></div>
+<div class="card"><h3>🇩🇿 Algérie → France 🇫🇷</h3>
+<div class="row"><span>À partir de 25 kg dans un seul sac</span><span class="p">500 DA/kg</span></div>
+<div class="row"><span>Déposer au dépôt</span><span class="p">500 DA/kg</span></div>
+<div class="row"><span>Ramassage à domicile dès 20 kg</span><span class="p">600 DA/kg</span></div>
+<div class="row"><span>Moins de 20 kg</span><span class="p">700 DA/kg</span></div></div>
+</div></div></section>
+
+<section id="calcul" class="alt"><div class="c" style="max-width:640px"><h2>Calculer et commander</h2>
+<div class="card">
+<div class="tabs"><button id="t-fr" class="on" type="button">🇫🇷 France → Algérie</button><button id="t-dz" type="button">🇩🇿 Algérie → France</button></div>
+<label for="mode">Mode de remise</label>
+<select id="mode"><option value="depot">Je dépose au dépôt</option><option value="ramassage">Ramassage à domicile</option></select>
+<label for="kg">Poids total (kg)</label>
+<input id="kg" type="number" min="1" step="0.5" inputmode="decimal" placeholder="Ex : 30">
+<label class="chk"><input id="single" type="checkbox"> Tout dans un seul sac (à partir de 25 kg)</label>
+<div class="out" id="calcOut"></div>
+<p class="mut">Estimation indicative. Le prix final est confirmé par le transporteur à la remise du colis.</p>
+</div>
+<form id="of" class="card" style="margin-top:1.2rem"><h3>Envoyer ma commande</h3>
+<p class="mut">Je reçois votre demande directement et je vous recontacte pour confirmer.</p>
+<label for="bn">Nom et prénom *</label><input id="bn" required minlength="2" maxlength="120" autocomplete="name">
+<label for="bp">Téléphone (WhatsApp) *</label><input id="bp" required minlength="6" maxlength="40" type="tel" autocomplete="tel">
+<label for="bv">Ville / adresse de ramassage</label><input id="bv" maxlength="300">
+<label for="dn">Nom du destinataire</label><input id="dn" maxlength="120">
+<label for="dt">Téléphone du destinataire</label><input id="dt" type="tel" maxlength="40">
+<label for="bo">Remarque</label><textarea id="bo" rows="2" maxlength="1000"></textarea>
+<div class="hp" aria-hidden="true"><label>Ne pas remplir <input id="hp" tabindex="-1" autocomplete="off"></label></div>
+<br><button class="btn" id="osub" type="submit">Envoyer ma commande</button>
+<div id="ores" role="status"></div>
+</form></div></section>
+
+<section id="suivi"><div class="c" style="max-width:640px"><h2>Suivi de votre colis</h2>
+<p class="mut">Entrez la référence (colis ou commande) ou le téléphone de l’expéditeur ou du destinataire.</p>
+<form id="tf" class="card"><label for="ti">Référence ou téléphone</label>
+<input id="ti" required placeholder="Ex : CMD-00012 ou 0612345678"><br><br>
+<button class="btn" type="submit">Rechercher</button></form>
+<div id="res"></div></div></section>
+
+<section id="contact" class="alt"><div class="c"><h2>Renseignements &amp; réservations</h2>
+<div class="grid g2">
+<a class="card" href="https://wa.me/213551236296"><h3>🇩🇿 Algérie</h3><b style="font-size:1.4rem;color:var(--red)">0551 23 62 96</b><p class="mut">WhatsApp</p></a>
+<a class="card" href="https://wa.me/33745674072"><h3>🇫🇷 France</h3><b style="font-size:1.4rem;color:var(--red)">+33 7 45 67 40 72</b><p class="mut">WhatsApp</p></a>
+</div>
+<form id="mf" class="card" style="margin-top:1.2rem;max-width:640px"><h3>Une question ? Écrivez-nous</h3>
+<label for="mn">Nom *</label><input id="mn" required minlength="2" maxlength="120">
+<label for="mt">Téléphone ou e-mail</label><input id="mt" maxlength="40">
+<label for="mm">Message *</label><textarea id="mm" rows="3" required minlength="2" maxlength="2000"></textarea>
+<div class="hp" aria-hidden="true"><label>Ne pas remplir <input id="mhp" tabindex="-1" autocomplete="off"></label></div>
+<br><button class="btn" type="submit">Envoyer</button>
+<div id="mres" role="status"></div>
+</form></div></section>
+
+<footer><div class="c">© Bagages Tala Ouglid – Transport bagages &amp; colis France ↔ Algérie</div></footer>
+
+<script src="config.js"></script>
+<script>
+const $=i=>document.getElementById(i);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const CFG=window.CFG||{};
+const ON=!!(CFG.SUPABASE_URL&&CFG.SUPABASE_KEY);
+async function rpc(fn,args){
+  const r=await fetch(CFG.SUPABASE_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{'Content-Type':'application/json',apikey:CFG.SUPABASE_KEY,Authorization:'Bearer '+CFG.SUPABASE_KEY},body:JSON.stringify(args)});
+  if(!r.ok)throw new Error('http '+r.status);
+  const t=await r.text();return t?JSON.parse(t):null;
+}
+/* ---- Calculateur ---- */
+const RATES={fr:{d:2.5,r:3,s:3.5,b:2.5,u:'€'},dz:{d:500,r:600,s:700,b:500,u:'DA'}};
+let dir='fr',LAST=null;
+function calc(){
+  const kg=parseFloat($('kg').value),o=$('calcOut');
+  if(!(kg>0)){o.style.display='none';LAST=null;return}
+  const R=RATES[dir],single=$('single').checked&&kg>=25;
+  let rate,why;
+  if(single){rate=R.b;why='Tarif sac unique (25 kg et +)'}
+  else if($('mode').value==='depot'){rate=R.d;why='Tarif dépôt'}
+  else if(kg<20){rate=R.s;why='Tarif moins de 20 kg'}
+  else{rate=R.r;why='Tarif ramassage à domicile dès 20 kg'}
+  const f=n=>n.toLocaleString('fr-FR',{minimumFractionDigits:R.u==='€'?2:0,maximumFractionDigits:2});
+  LAST={kg,total:f(rate*kg)+' '+R.u};o.style.display='block';
+  o.innerHTML='<span class="mut">Prix estimé pour '+esc(kg)+' kg</span><b>'+f(rate*kg)+' '+R.u+'</b><span class="mut">'+why+' : '+f(rate)+' '+R.u+'/kg</span>';
+}
+$('t-fr').onclick=()=>{dir='fr';$('t-fr').className='on';$('t-dz').className='';calc()};
+$('t-dz').onclick=()=>{dir='dz';$('t-dz').className='on';$('t-fr').className='';calc()};
+['kg','mode','single'].forEach(i=>$(i).addEventListener('input',calc));
+
+/* ---- Commande ---- */
+function waLink(ref){
+  const t=['Bonjour, je viens de passer une commande'+(ref?' ('+ref+')':'')+'.','Sens : '+(dir==='fr'?'France → Algérie':'Algérie → France'),'Poids : '+(LAST?LAST.kg+' kg':'à préciser'),'Prix estimé : '+(LAST?LAST.total:'à confirmer'),'Nom : '+$('bn').value,'Téléphone : '+$('bp').value].join('\n');
+  return 'https://wa.me/'+(dir==='fr'?'33745674072':'213551236296')+'?text='+encodeURIComponent(t);
+}
+$('of').addEventListener('submit',async e=>{
+  e.preventDefault();
+  if($('hp').value)return;
+  const res=$('ores'),btn=$('osub');
+  const wa=waLink('');
+  if(!ON){res.innerHTML='<div class="ok">Envoi en ligne bientôt disponible. <a href="'+wa+'" target="_blank" rel="noopener"><b>Envoyer ma demande sur WhatsApp</b></a></div>';return}
+  btn.disabled=true;res.innerHTML='';
+  try{
+    const ref=await rpc('submit_order',{p_sens:dir==='fr'?'France → Algérie':'Algérie → France',p_mode:$('mode').value==='depot'?'Dépôt':'Ramassage à domicile',p_poids:LAST?LAST.kg:null,p_prix:LAST?LAST.total:null,p_nom:$('bn').value,p_tel:$('bp').value,p_adresse:$('bv').value,p_dest_nom:$('dn').value,p_dest_tel:$('dt').value,p_note:$('bo').value});
+    res.innerHTML='<div class="ok"><b>Commande envoyée ✅</b><br>Votre référence : <b>'+esc(ref)+'</b> (gardez-la pour le suivi). Je vous recontacte très vite. <br><a href="'+waLink(ref)+'" target="_blank" rel="noopener"><b>Confirmer aussi sur WhatsApp</b></a></div>';
+    $('of').reset();
+  }catch(err){res.innerHTML='<div class="err">L’envoi a échoué. Réessayez ou écrivez-nous sur <a href="'+wa+'" target="_blank" rel="noopener"><b>WhatsApp</b></a>.</div>'}
+  btn.disabled=false;
+});
+
+/* ---- Message ---- */
+$('mf').addEventListener('submit',async e=>{
+  e.preventDefault();if($('mhp').value)return;
+  const res=$('mres');
+  if(!ON){res.innerHTML='<div class="err">Messagerie indisponible pour le moment : écrivez-nous sur WhatsApp.</div>';return}
+  try{await rpc('send_message',{p_nom:$('mn').value,p_tel:$('mt').value,p_message:$('mm').value});
+    res.innerHTML='<div class="ok">Message envoyé ✅ Merci, je vous réponds rapidement.</div>';$('mf').reset()}
+  catch(err){res.innerHTML='<div class="err">L’envoi a échoué. Réessayez ou utilisez WhatsApp.</div>'}
+});
+
+/* ---- Suivi ---- */
+$('tf').addEventListener('submit',async e=>{
+  e.preventDefault();const out=$('res');
+  if(!ON){out.innerHTML='<div class="card" style="margin-top:1rem">Suivi bientôt disponible. Contactez-nous sur WhatsApp.</div>';return}
+  try{
+    const rows=await rpc('track_parcel',{p_q:$('ti').value});
+    out.innerHTML=!rows||!rows.length?'<div class="card" style="margin-top:1rem">Aucun colis trouvé. Vérifiez la référence ou le numéro, ou contactez-nous sur WhatsApp.</div>':
+    rows.map(p=>'<div class="card" style="margin-top:1rem"><span class="pill">'+esc(p.statut)+'</span><h3 style="margin-top:.6rem">'+esc(p.ref)+'</h3><p>'+(p.pays||p.region?'<b>Position :</b> '+esc(p.pays||'')+' '+esc(p.region||'')+'<br>':'')+(p.livraison?'<b>Livraison estimée :</b> '+esc(new Date(p.livraison).toLocaleDateString('fr-FR'))+'<br>':'')+(p.poids?'<b>Poids :</b> '+esc(p.poids)+' kg':'')+'</p>'+(p.commentaire?'<p class="mut">'+esc(p.commentaire)+'</p>':'')+'</div>').join('');
+  }catch(err){out.innerHTML='<div class="err">Recherche impossible pour le moment.</div>'}
+});
+</script>
+</body>
+</html>

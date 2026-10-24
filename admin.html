@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Espace transporteur – Tala Ouglid</title>
+<style>
+:root{--bg:#f4f5f8;--card:#fff;--tx:#14181f;--mut:#5b6472;--bd:#e3e6ec;--navy:#0f1b3d;--red:#d6264a;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#0b1020;--card:#151c33;--tx:#eef1f8;--mut:#9aa5bd;--bd:#27304d;--navy:#070c1d;color-scheme:dark}}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--tx);line-height:1.45}
+header{background:var(--navy);color:#fff;border-bottom:3px solid var(--red);padding:.7rem 1rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+main{max-width:1100px;margin:0 auto;padding:1rem}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:1rem;padding:1.1rem;margin-bottom:1rem}
+.btn{border:0;cursor:pointer;padding:.5rem 1rem;border-radius:99px;font-weight:700;background:var(--red);color:#fff;font:inherit;font-weight:700}
+.btn.s{padding:.25rem .7rem;font-size:.8rem}.btn.g{background:#1faa59}.btn.o{background:transparent;border:1px solid var(--bd);color:var(--tx)}
+label{display:block;font-size:.85rem;margin:.6rem 0 .2rem;font-weight:600}
+input,select,textarea{width:100%;padding:.5rem .7rem;border-radius:.6rem;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font:inherit}
+.tabs{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap}
+.tabs button{padding:.5rem 1rem;border-radius:.7rem;border:2px solid var(--bd);background:var(--card);color:var(--tx);font-weight:700;cursor:pointer;font-family:inherit}
+.tabs button.on{border-color:var(--red);background:var(--red);color:#fff}
+.sc{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.85rem}td,th{padding:.45rem;border-bottom:1px solid var(--bd);text-align:left;vertical-align:top}
+.mut{color:var(--mut);font-size:.85rem}.err{color:#dc2626;font-weight:600}
+.new{background:rgba(214,38,74,.1)}
+.g2{display:grid;gap:1rem}@media(min-width:800px){.g2{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header><b>Espace transporteur – Tala Ouglid</b><button class="btn s o" id="out" style="display:none;color:#fff">Se déconnecter</button></header>
+<main id="app"></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="config.js"></script>
+<script>
+const $=i=>document.getElementById(i);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const CFG=window.CFG||{};
+const app=$('app');
+if(!CFG.SUPABASE_URL||!CFG.SUPABASE_KEY){app.innerHTML='<div class="card err">config.js n’est pas encore rempli (URL et clé Supabase).</div>'}
+else{
+const sb=supabase.createClient(CFG.SUPABASE_URL,CFG.SUPABASE_KEY);
+let tab='orders';
+const OS=['Nouvelle','Confirmée','Ramassée','Au dépôt','Terminée','Annulée'];
+const PS=['Reçu','En attente de départ','En transit','Arrivé au pays','En livraison','Livré'];
+const fmt=d=>new Date(d).toLocaleString('fr-FR',{dateStyle:'short',timeStyle:'short'});
+const wa=t=>'https://wa.me/'+String(t||'').replace(/[^0-9]/g,'').replace(/^0/,'33');
+
+function login(msg){
+  $('out').style.display='none';
+  app.innerHTML='<form id="lf" class="card" style="max-width:420px;margin:2rem auto"><h2>Connexion</h2><label>E-mail</label><input id="em" type="email" required autocomplete="username"><label>Mot de passe</label><input id="pw" type="password" required autocomplete="current-password"><br><br><button class="btn">Se connecter</button><p class="err">'+esc(msg||'')+'</p></form>';
+  $('lf').onsubmit=async e=>{e.preventDefault();const {error}=await sb.auth.signInWithPassword({email:$('em').value,password:$('pw').value});error?login('Identifiants incorrects.'):start()};
+}
+async function start(){
+  const {data:{session}}=await sb.auth.getSession();
+  if(!session)return login();
+  $('out').style.display='';$('out').onclick=async()=>{await sb.auth.signOut();login()};
+  draw();
+}
+async function draw(){
+  const [o,m,p]=await Promise.all([sb.from('orders').select('*').order('id',{ascending:false}),sb.from('messages').select('*').order('id',{ascending:false}),sb.from('parcels').select('*').order('updated_at',{ascending:false})]);
+  if(o.error||m.error||p.error){app.innerHTML='<div class="card err">Erreur : '+esc((o.error||m.error||p.error).message)+'. Avez-vous exécuté setup.sql ?</div>';return}
+  const nn=o.data.filter(x=>x.statut==='Nouvelle').length,nm=m.data.filter(x=>!x.lu).length;
+  let h='<div class="tabs"><button data-t="orders" class="'+(tab==='orders'?'on':'')+'">Commandes ('+nn+' nouvelles)</button><button data-t="messages" class="'+(tab==='messages'?'on':'')+'">Messages ('+nm+' non lus)</button><button data-t="parcels" class="'+(tab==='parcels'?'on':'')+'">Colis / suivi ('+p.data.length+')</button></div>';
+  if(tab==='orders'){
+    h+='<div class="card sc"><table><tr><th>Réf. / date</th><th>Client</th><th>Envoi</th><th>Statut</th><th></th></tr>'+(o.data.map(x=>'<tr class="'+(x.statut==='Nouvelle'?'new':'')+'"><td><b>CMD-'+String(x.id).padStart(5,'0')+'</b><br><span class="mut">'+fmt(x.created_at)+'</span></td><td>'+esc(x.nom)+'<br><a href="'+wa(x.tel)+'" target="_blank">'+esc(x.tel)+'</a>'+(x.adresse?'<br><span class="mut">'+esc(x.adresse)+'</span>':'')+'</td><td>'+esc(x.sens)+'<br>'+esc(x.mode)+' · '+esc(x.poids??'?')+' kg · '+esc(x.prix_estime||'')+(x.dest_nom||x.dest_tel?'<br><span class="mut">Dest. : '+esc(x.dest_nom||'')+' '+esc(x.dest_tel||'')+'</span>':'')+(x.note?'<br><span class="mut">'+esc(x.note)+'</span>':'')+'</td><td><select data-o="'+x.id+'">'+OS.map(s=>'<option'+(s===x.statut?' selected':'')+'>'+s+'</option>').join('')+'</select></td><td><button class="btn s" data-do="'+x.id+'">Suppr.</button></td></tr>').join('')||'<tr><td colspan="5" class="mut">Aucune commande.</td></tr>')+'</table></div>';
+  }else if(tab==='messages'){
+    h+='<div class="card sc"><table><tr><th>Date</th><th>De</th><th>Message</th><th></th></tr>'+(m.data.map(x=>'<tr class="'+(x.lu?'':'new')+'"><td>'+fmt(x.created_at)+'</td><td>'+esc(x.nom)+'<br><span class="mut">'+esc(x.tel)+'</span></td><td>'+esc(x.message)+'</td><td><button class="btn s o" data-r="'+x.id+'" data-v="'+(!x.lu)+'">'+(x.lu?'Non lu':'Lu')+'</button> <button class="btn s" data-dm="'+x.id+'">Suppr.</button></td></tr>').join('')||'<tr><td colspan="4" class="mut">Aucun message.</td></tr>')+'</table></div>';
+  }else{
+    h+='<div class="g2"><form id="pf" class="card"><h3>Ajouter / modifier un colis</h3><label>Référence</label><input name="ref" required placeholder="TO-2026-001"><label>Tél. expéditeur</label><input name="tel_exp"><label>Tél. destinataire</label><input name="tel_dest"><label>Statut</label><select name="statut">'+PS.map(s=>'<option>'+s+'</option>').join('')+'</select><label>Pays actuel</label><input name="pays" placeholder="France, Algérie, En mer…"><label>Région / ville</label><input name="region"><label>Livraison estimée</label><input name="livraison" type="date"><label>Poids (kg)</label><input name="poids" type="number" step="0.5"><label>Commentaire (visible par le client)</label><textarea name="commentaire" rows="2"></textarea><br><button class="btn">Enregistrer</button></form>'+
+    '<div class="card sc"><h3>Colis enregistrés</h3><table><tr><th>Réf.</th><th>Statut</th><th></th></tr>'+(p.data.map(x=>'<tr><td>'+esc(x.ref)+'</td><td>'+esc(x.statut)+'</td><td><button class="btn s o" data-pe="'+esc(x.ref)+'">Modifier</button> <button class="btn s" data-pd="'+esc(x.ref)+'">Suppr.</button></td></tr>').join('')||'<tr><td colspan="3" class="mut">Aucun colis.</td></tr>')+'</table><p class="mut">Le client suit son colis avec la référence ou un des deux téléphones.</p></div></div>';
+  }
+  app.innerHTML=h;
+  app.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{tab=b.dataset.t;draw()});
+  const run=async q=>{const {error}=await q;if(error)alert('Erreur : '+error.message);draw()};
+  app.querySelectorAll('[data-o]').forEach(s=>s.onchange=()=>run(sb.from('orders').update({statut:s.value}).eq('id',s.dataset.o)));
+  app.querySelectorAll('[data-do]').forEach(b=>b.onclick=()=>confirm('Supprimer cette commande ?')&&run(sb.from('orders').delete().eq('id',b.dataset.do)));
+  app.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>run(sb.from('messages').update({lu:b.dataset.v==='true'}).eq('id',b.dataset.r)));
+  app.querySelectorAll('[data-dm]').forEach(b=>b.onclick=()=>confirm('Supprimer ce message ?')&&run(sb.from('messages').delete().eq('id',b.dataset.dm)));
+  app.querySelectorAll('[data-pd]').forEach(b=>b.onclick=()=>confirm('Supprimer ce colis ?')&&run(sb.from('parcels').delete().eq('ref',b.dataset.pd)));
+  app.querySelectorAll('[data-pe]').forEach(b=>b.onclick=()=>{const x=p.data.find(r=>r.ref===b.dataset.pe),f=$('pf').elements;Object.keys(x).forEach(k=>{if(f[k]&&x[k]!=null)f[k].value=x[k]});$('pf').scrollIntoView()});
+  if($('pf'))$('pf').onsubmit=e=>{e.preventDefault();const o=Object.fromEntries(new FormData(e.target));for(const k in o)if(o[k]==='')o[k]=null;o.updated_at=new Date().toISOString();run(sb.from('parcels').upsert(o))};
+}
+start();
+}
+</script>
+</body>
+</html>
