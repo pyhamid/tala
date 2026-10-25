@@ -47,7 +47,7 @@ const wa=t=>'https://wa.me/'+String(t||'').replace(/[^0-9]/g,'').replace(/^0/,'3
 function login(msg){
   $('out').style.display='none';
   app.innerHTML='<form id="lf" class="card" style="max-width:420px;margin:2rem auto"><h2>Connexion</h2><label>Nom d’utilisateur</label><input id="em" type="text" required autocomplete="username" autocapitalize="none" autocorrect="off"><label>Mot de passe</label><input id="pw" type="password" required autocomplete="current-password"><br><br><button class="btn">Se connecter</button><p class="err">'+esc(msg||'')+'</p></form>';
-  $('lf').onsubmit=async e=>{e.preventDefault();const {error}=await sb.auth.signInWithPassword({email:$('em').value.trim().toLowerCase()+'@siahmed.com',password:$('pw').value});error?login('Identifiants incorrects.'):start()};
+  $('lf').onsubmit=async e=>{e.preventDefault();const {error}=await sb.auth.signInWithPassword({email:$('em').value.trim().toLowerCase()+'@tala.com',password:$('pw').value});error?login('Identifiants incorrects.'):start()};
 }
 async function start(){
   const {data:{session}}=await sb.auth.getSession();
